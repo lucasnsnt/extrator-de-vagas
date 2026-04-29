@@ -40,7 +40,18 @@
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-jsoup-document-reader</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.17.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>7.3.2.Final</version>
+			<type>pom</type>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-restclient-test</artifactId>
