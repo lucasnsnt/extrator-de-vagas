@@ -2,7 +2,6 @@ package io.github.lucasnsnt.unemployment_killer.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,23 +13,26 @@ import java.util.List;
 public class Job {
 
     @Id
-    @Column(updatable = false)
+    @Column(name = "id" ,updatable = false)
     private String id;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(name = "title" , nullable = false)
     private String title;
 
+    @Column(name = "company")
     private String company;
 
+    @Column(name = "location")
     private String location;
 
-    @Column(length = 5000)
+    @Column(name = "description" ,length = 5000)
     private String description;
 
+    @Column(name = "publishedAt")
     private LocalDate publishedAt;
 
-    @Column(updatable = false)
+    @Column(name = "createdAt" ,updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
@@ -38,6 +40,7 @@ public class Job {
         this.createdAt = LocalDateTime.now();
     }
 
+    @Column(name = "status")
     private String status;
 
     @OneToMany(
