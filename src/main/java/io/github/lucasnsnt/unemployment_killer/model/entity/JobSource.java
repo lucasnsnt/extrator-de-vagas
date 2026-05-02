@@ -15,14 +15,15 @@ public class JobSource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
     private String id;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(name = "source" ,nullable = false)
     private String source;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(name = "url" ,nullable = false, unique = true)
     private String url;
 
     @NotNull
