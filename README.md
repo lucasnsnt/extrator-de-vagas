@@ -26,7 +26,7 @@ palavras-chave, personalize o currículo para cada vaga usando LLM e envie notif
 Java 21, Spring Boot, Jsoup, OpenHTMLtoPDF, Thymeleaf, TelegramBots, SQLite
 
 ## Status
-Projeto em fase inicial de estruturação.
+Projeto em desenvolvimento. Extração de dados e integrações avançadas em andamento.
 
 ## Contato
 Desenvolvido por Lucas Santos
