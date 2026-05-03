@@ -1,11 +1,14 @@
 package io.github.lucasnsnt.unemployment_killer.services;
 
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
+import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
 import io.github.lucasnsnt.unemployment_killer.repository.IJobRepository;
 import io.github.lucasnsnt.unemployment_killer.repository.IJobSourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.text.Normalizer;
 
 @Service
@@ -39,19 +42,42 @@ public class JobServices {
         job.setCompany(normalizationMethod(job.getCompany()));
     }
 
-    private String generateHash(String title, String description, String company) {
-        String hash = title + description + company;
-        return hash;
+    private String generateHash(String title, String description, String company) throws Exception {
+
+
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.reset();
+        m.update(title.getBytes("utf8"),0,title.length());
+        if (description != null) {
+            m.update(description.getBytes("utf8"), 0, description.length());
+        }
+        if (company != null) {
+            m.update(company.getBytes("utf8"),0,company.length());
+        }
+        return new BigInteger(1,m.digest()).toString(16);
 
 
     }
 
-    public Job processJob(Job job) {
+    public Job processJob(Job job, JobSource jobSource) throws Exception {
 
+        normalizeJob(job);
+        job.setId(generateHash(job.getTitle(),job.getDescription(),job.getCompany()));
 
+        if (jobRepository.findById(job.getId()).isPresent()
+                && jobSourceRepository.findByJobAndSourceAndUrl
+                (job,
+                jobSource.getSource(),
+                jobSource.getUrl()).isEmpty())
+        {
 
-
-        return jobRepository.save(job);
+            jobSourceRepository.save(jobSource);
+            return job;
+        }
+        jobRepository.save(job);
+        jobSource.setJob(job);
+        jobSourceRepository.save(jobSource);
+        return job;
 
     }
 
