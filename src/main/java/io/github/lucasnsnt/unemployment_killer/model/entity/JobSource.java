@@ -26,10 +26,17 @@ public class JobSource {
     @Column(name = "url" ,nullable = false, unique = true)
     private String url;
 
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
+
+    @Column(name = "companyPageUrl")
+    private String companyPageUrl;
+
+    @Column(name = "sourceJobId")
+    private String sourceJobId;
 
     public Job getJob() {
         return job;
@@ -59,4 +66,19 @@ public class JobSource {
         return id;
     }
 
+    public String getCompanyPageUrl() {
+        return companyPageUrl;
+    }
+
+    public void setCompanyPageUrl(String companyPageUrl) {
+        this.companyPageUrl = companyPageUrl;
+    }
+
+    public String getSourceJobId() {
+        return sourceJobId;
+    }
+
+    public void setSourceJobId(String sourceJobId) {
+        this.sourceJobId = sourceJobId;
+    }
 }

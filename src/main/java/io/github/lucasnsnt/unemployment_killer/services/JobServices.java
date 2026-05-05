@@ -6,6 +6,7 @@ import io.github.lucasnsnt.unemployment_killer.repository.IJobRepository;
 import io.github.lucasnsnt.unemployment_killer.repository.IJobSourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -15,10 +16,10 @@ import java.text.Normalizer;
 public class JobServices {
 
     @Autowired
-    private IJobRepository jobRepository;
+    private IJobRepository iJobRepository;
 
     @Autowired
-    private IJobSourceRepository jobSourceRepository;
+    private IJobSourceRepository iJobSourceRepository;
 
 
     public String normalizationMethod(String text) {
@@ -59,27 +60,31 @@ public class JobServices {
 
     }
 
+    @Transactional
     public Job processJob(Job job, JobSource jobSource) throws Exception {
 
         normalizeJob(job);
         job.setId(generateHash(job.getTitle(),job.getDescription(),job.getCompany()));
 
-        if (jobRepository.findById(job.getId()).isPresent()
-                && jobSourceRepository.findByJobAndSourceAndUrl
-                (job,
-                jobSource.getSource(),
-                jobSource.getUrl()).isEmpty())
-        {
-
-            jobSourceRepository.save(jobSource);
-            return job;
+        if (iJobRepository.findById(job.getId()).isPresent()) {
+            Job existingJob = iJobRepository.findById(job.getId()).get();
+            System.out.println("Verificando source: job=" + job.getId() + " source=" + jobSource.getSource() + " url=" + jobSource.getUrl());
+            if (iJobSourceRepository.findByJobAndSourceAndUrl
+                    (existingJob, jobSource.getSource(), jobSource.getUrl()).isEmpty()){
+                jobSource.setJob(existingJob);
+                iJobSourceRepository.save(jobSource);
+            }
+            return existingJob;
+        } else {
+            Job savedJob = iJobRepository.save(job);
+            iJobRepository.flush();
+            jobSource.setJob(savedJob);
+            iJobSourceRepository.save(jobSource);
+            return savedJob;
         }
-        jobRepository.save(job);
-        jobSource.setJob(job);
-        jobSourceRepository.save(jobSource);
-        return job;
 
     }
 
 
 }
+
