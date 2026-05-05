@@ -12,3 +12,4 @@ public interface IJobSourceRepository extends JpaRepository<JobSource, String> {
 
     Optional<JobSource> findByJobAndSourceAndUrl(Job job, String source, String url);
 }
+
