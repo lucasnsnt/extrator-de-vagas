@@ -6,6 +6,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
+import io.github.lucasnsnt.unemployment_killer.repository.IJobSourceRepository;
 import io.github.lucasnsnt.unemployment_killer.scraper.JobScraper;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +47,8 @@ public class GupyScraper implements JobScraper {
 
                     gupyApiResponse = gson.fromJson(jsonBody, GupyApiResponse.class);
 
+
+
                     for (GupyJobResponse jobResponse : gupyApiResponse.getData()) {
                         if (!"vacancy_type_effective".equals(jobResponse.getType())) {
                             continue;
@@ -61,15 +64,19 @@ public class GupyScraper implements JobScraper {
                         job.setWorkplaceType(jobResponse.getWorkplaceType());
                         job.setPublishedAt(LocalDate.parse(jobResponse.
                                 getPublishedDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")));
+
                         jobSource.setJob(job);
                         jobSource.setSourceJobId(jobResponse.getId());
                         jobSource.setCompanyPageUrl(jobResponse.getCareerPageUrl());
                         jobSource.setSource("Gupy");
                         jobSource.setUrl(jobResponse.getJobUrl());
-
                         job.getSources().add(jobSource);
                         jobs.add(job);
+
+
                     }
+
+
 
 
                 }

@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.Normalizer;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class JobServices {
@@ -20,7 +22,6 @@ public class JobServices {
 
     @Autowired
     private IJobSourceRepository iJobSourceRepository;
-
 
     public String normalizationMethod(String text) {
 
@@ -61,30 +62,32 @@ public class JobServices {
     }
 
     @Transactional
-    public Job processJob(Job job, JobSource jobSource) throws Exception {
-
+    public Job processJob(Job job, JobSource jobSource, Set<String> sourceJobFindId) throws Exception {
         normalizeJob(job);
         job.setId(generateHash(job.getTitle(),job.getDescription(),job.getCompany()));
+        System.out.println(job.getId());
 
         if (iJobRepository.findById(job.getId()).isPresent()) {
             Job existingJob = iJobRepository.findById(job.getId()).get();
-            System.out.println("Verificando source: job=" + job.getId() + " source=" + jobSource.getSource() + " url=" + jobSource.getUrl());
+            System.out.println("Verificando source: job=" + job.getId() + " source=" +
+                    jobSource.getSource() + " url=" + jobSource.getUrl());
             if (iJobSourceRepository.findByJobAndSourceAndUrl
-                    (existingJob, jobSource.getSource(), jobSource.getUrl()).isEmpty()){
-                jobSource.setJob(existingJob);
-                iJobSourceRepository.save(jobSource);
+                    (existingJob, jobSource.getSource(), jobSource.getUrl()).isEmpty()) {
+
+                if (!sourceJobFindId.contains(jobSource.getSourceJobId())) {
+                    sourceJobFindId.add(jobSource.getSourceJobId());
+                    jobSource.setJob(existingJob);
+                    iJobSourceRepository.save(jobSource);
+                }
             }
             return existingJob;
         } else {
             Job savedJob = iJobRepository.save(job);
             iJobRepository.flush();
-            jobSource.setJob(savedJob);
-            iJobSourceRepository.save(jobSource);
             return savedJob;
         }
 
     }
-
 
 }
 
