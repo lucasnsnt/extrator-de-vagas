@@ -3,6 +3,7 @@ package io.github.lucasnsnt.unemployment_killer.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "jobs")
-public class Job {
+public class Job{
 
     @Id
     @Column(name = "id" ,updatable = false)
