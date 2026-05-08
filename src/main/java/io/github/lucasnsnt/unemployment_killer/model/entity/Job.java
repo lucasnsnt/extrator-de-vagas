@@ -26,7 +26,8 @@ public class Job {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "description" ,length = 5000)
+    @Lob
+    @Column(name = "description" , columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "publishedAt")

@@ -1,32 +1,41 @@
-# Scrapling Vagas
+# plataforma de automação de busca de vagas
 
-Automação inteligente para busca, filtragem e notificação de vagas de emprego, com personalização
-de currículo.
+Automacao para busca, filtragem e acompanhamento de vagas de emprego, com foco em pipeline de coleta, deduplicacao e evolucao para personalizacao de curriculo e notificacao.
 
-## Visão
-O objetivo é criar uma plataforma que automatize a busca de vagas em múltiplos sites, filtre por
-palavras-chave, personalize o currículo para cada vaga usando LLM e envie notificações via Telegram.
+## Visao
+O objetivo do projeto e automatizar a busca de vagas em multiplos sites, filtrar por palavras-chave,
+evitar duplicidades e evoluir para personalizacao de curriculo com LLM e notificacoes via Telegram.
 
 ## Features Implementadas
-- Estrutura de entidades para vagas e fontes de vagas 
-- Repositórios JPA para persistência de vagas e fontes
-- Serviço para normalização, deduplicação e registro de vagas
-- Exemplo de extração de dados de sites (estrutura inicial)
-- Registro local de vagas processadas
+- Estrutura de entidades para vagas e fontes
+- Repositorios Spring Data JPA para persistencia
+- Servico de processamento com:
+  - normalizacao de texto
+  - geracao de hash para deduplicacao de vagas
+  - associacao de fonte por vaga
+- Scraper funcional da Gupy com consumo de API e mapeamento para entidades
+- Agendamento automatico de coleta com `@Scheduled`
+- Persistencia local em memoria para desenvolvimento
+
+## Em Andamento
+- Ajustes de robustez para deduplicacao de `JobSource` em cenarios repetidos/concorrentes
+- Refino de logs e tratamento de erros no fluxo de processamento
 
 ## Features Planejadas
-- Extração de dados completa de vagas em sites populares
-- Filtro por palavras-chave configuráveis via properties
-- Personalização automática do currículo com LLM
-- Geração de PDF do currículo
-- Notificação via Telegram
-- Interface web para visualização e controle
+- Scrapers adicionais (Indeed, LinkedIn e outros portais)
+- Filtros mais ricos (localizacao, senioridade e tipo de trabalho)
+- Personalizacao automatica de curriculo com LLM
+- Geracao de curriculo em PDF
+- Notificacao via Telegram
+- Interface web para visualizacao e controle
+- Migracao para banco persistente de producao (ex.: PostgreSQL)
 
 ## Tecnologias
-Java 21, Spring Boot, Jsoup, OpenHTMLtoPDF, Thymeleaf, TelegramBots, SQLite
+Java 21+, Spring Boot, Spring Data JPA, Hibernate, H2, OkHttp, Gson, Selenium, HtmlUnit, Thymeleaf, OpenHTMLtoPDF, TelegramBots
 
 ## Status
-Projeto em desenvolvimento. Extração de dados e integrações avançadas em andamento.
+Projeto em desenvolvimento ativo.
+A base de coleta e persistencia ja esta funcional (Gupy + Scheduler + JPA), com evolucao em andamento para integracoes e camadas de produto.
 
 ## Contato
 Desenvolvido por Lucas Santos

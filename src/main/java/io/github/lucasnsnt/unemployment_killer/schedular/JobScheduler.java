@@ -9,7 +9,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class JobScheduler {
@@ -26,9 +28,18 @@ public class JobScheduler {
     @Scheduled(fixedDelay = 7200000)
     public void JobSearchSchedule() throws Exception {
 
+        Set<String> sourceJobFindId = new HashSet<>();
+
         List<Job> jobs = gupyScraper.scrapJob(keywords);
         for (Job job : jobs) {
-            jobServices.processJob(job, job.getSources().get(0));
+
+            try {
+                jobServices.processJob(job, job.getSources().getFirst(), sourceJobFindId);
+            }catch (Exception e){
+                System.out.println("Erro ao processar vaga: " + job.getTitle() + e.getMessage());
+            }
+
+
         }
 
     }
