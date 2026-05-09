@@ -1,0 +1,45 @@
+package io.github.lucasnsnt.unemployment_killer.notification;
+
+
+import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
+import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
+import io.github.lucasnsnt.unemployment_killer.repository.IJobRepository;
+import io.github.lucasnsnt.unemployment_killer.repository.IJobSourceRepository;
+import org.hibernate.mapping.Array;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+@Service
+public class JobNotificationFormatter {
+
+    public String formatNotification(Job job) {
+
+        List<String> urlsJobSource = job.getSources().stream()
+                .map(jobSource -> jobSource.getUrl())
+                .distinct()
+                .toList();
+
+        return String.format("""
+
+                %s
+
+                %s
+
+                Data de postagem: %s
+                localização: %s %s , modalidade: %s
+
+                links: %s
+
+                """,job.getTitle(),job.getDescription()
+                ,job.getPublishedAt(),job.getCity()
+                ,job.getCountry(),job.getWorkplaceType(),String.join(" - ", urlsJobSource));
+    }
+}
