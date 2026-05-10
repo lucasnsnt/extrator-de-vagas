@@ -80,7 +80,7 @@ public class GupyJobResponse {
     }
 
     public String getPublishedDate() {
-        return (publishedDate);
+        return (publishedDate).substring(0, 10);
     }
 
     public String getCity() {

@@ -62,8 +62,9 @@ public class GupyScraper implements JobScraper {
                         job.setCity(jobResponse.getCity());
                         job.setCountry(jobResponse.getCountry());
                         job.setWorkplaceType(jobResponse.getWorkplaceType());
+                        System.out.println(jobResponse.getPublishedDate());
                         job.setPublishedAt(LocalDate.parse(jobResponse.
-                                getPublishedDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")));
+                                getPublishedDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
                         jobSource.setJob(job);
                         jobSource.setSourceJobId(jobResponse.getId());

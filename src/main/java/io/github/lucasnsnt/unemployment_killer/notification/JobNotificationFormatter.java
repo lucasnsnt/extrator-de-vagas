@@ -42,7 +42,8 @@ public class JobNotificationFormatter {
 
                 Fonte(s): %s
 
-                """,preFormatedTitle,preFormatedDescription
+                """,preFormatedTitle,
+                preFormatedDescription.substring(0, Math.min(preFormatedDescription.length(), 4090))
                 , job.getPublishedAt().format(dateFormat),job.getState()
                 ,job.getCountry(),job.getWorkplaceType(),String.join(" / ", urlsJobSource));
     }
