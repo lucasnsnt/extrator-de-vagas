@@ -39,7 +39,7 @@ public class JobScheduler {
                 System.out.println("Erro ao processar vaga: " + job.getTitle() + e.getMessage());
             }
 
-
+            Thread.sleep(2000);
         }
 
     }
