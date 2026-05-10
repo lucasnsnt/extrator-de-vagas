@@ -11,6 +11,8 @@ import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.stream.Stream;
 public class JobNotificationFormatter {
 
     public String formatNotification(Job job, String preFormatedTitle ,String preFormatedDescription) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
         List<String> urlsJobSource = job.getSources().stream()
                 .map(jobSource -> jobSource.getUrl())
@@ -40,7 +43,7 @@ public class JobNotificationFormatter {
                 Fonte(s): %s
 
                 """,preFormatedTitle,preFormatedDescription
-                ,job.getPublishedAt(),job.getState()
+                , job.getPublishedAt().format(dateFormat),job.getState()
                 ,job.getCountry(),job.getWorkplaceType(),String.join(" / ", urlsJobSource));
     }
 }
