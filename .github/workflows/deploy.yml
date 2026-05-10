@@ -46,8 +46,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
           source: "target/unemployment-killer-0.0.1-SNAPSHOT.jar"
-          target: "/opt/unemployment-killer/"
-          strip_components: 1
+          target: "/opt/unemployment-killer/unemployment-killer-0.0.1-SNAPSHOT.jar"
 
       - name: Sobe a aplicação e verifica
         uses: appleboy/ssh-action@v1.0.3
