@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 public class JobNotificationFormatter {
 
     public String formatNotification(Job job, String preFormatedTitle ,String preFormatedDescription) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         List<String> urlsJobSource = job.getSources().stream()
                 .map(jobSource -> jobSource.getUrl())
