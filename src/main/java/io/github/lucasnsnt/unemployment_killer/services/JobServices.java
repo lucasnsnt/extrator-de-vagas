@@ -2,6 +2,8 @@ package io.github.lucasnsnt.unemployment_killer.services;
 
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
+import io.github.lucasnsnt.unemployment_killer.notification.JobNotificationFormatter;
+import io.github.lucasnsnt.unemployment_killer.notification.TelegramNotification;
 import io.github.lucasnsnt.unemployment_killer.repository.IJobRepository;
 import io.github.lucasnsnt.unemployment_killer.repository.IJobSourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.Normalizer;
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -22,6 +23,12 @@ public class JobServices {
 
     @Autowired
     private IJobSourceRepository iJobSourceRepository;
+
+    @Autowired
+    public TelegramNotification telegramNotification;
+
+    @Autowired
+    public JobNotificationFormatter jobNotificationFormatter;
 
     public String normalizationMethod(String text) {
 
@@ -58,11 +65,14 @@ public class JobServices {
         }
         return new BigInteger(1,m.digest()).toString(16);
 
-
     }
 
     @Transactional
     public Job processJob(Job job, JobSource jobSource, Set<String> sourceJobFindId) throws Exception {
+        String preFormatedTitle = job.getTitle();
+        String preFormatedDescription = job.getDescription();
+        String preFormatedCompany = job.getCompany();
+
         normalizeJob(job);
         job.setId(generateHash(job.getTitle(),job.getDescription(),job.getCompany()));
         System.out.println(job.getId());
@@ -78,14 +88,19 @@ public class JobServices {
                     sourceJobFindId.add(jobSource.getSourceJobId());
                     jobSource.setJob(existingJob);
                     iJobSourceRepository.save(jobSource);
+                    telegramNotification.sendNotification
+                            (jobNotificationFormatter.formatNotification(job, preFormatedTitle, preFormatedDescription));
+                    return job;
                 }
             }
             return existingJob;
-        } else {
-            Job savedJob = iJobRepository.save(job);
-            iJobRepository.flush();
-            return savedJob;
         }
+        Job savedJob = iJobRepository.save(job);
+        iJobRepository.flush();
+        telegramNotification.sendNotification(jobNotificationFormatter
+                .formatNotification(job, preFormatedTitle, preFormatedDescription));
+        return savedJob;
+
 
     }
 

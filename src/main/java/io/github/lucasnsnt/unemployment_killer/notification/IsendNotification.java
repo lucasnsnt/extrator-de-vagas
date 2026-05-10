@@ -1,7 +1,9 @@
 package io.github.lucasnsnt.unemployment_killer.notification;
 
-public interface IsendNotification {
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
+public interface IsendNotification  {
 
     public void sendNotification(String message);
-
 }
