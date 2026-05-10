@@ -37,7 +37,6 @@ jobs:
             sudo systemctl stop unemployment-killer || true
             mkdir -p /opt/unemployment-killer
             rm -f /opt/unemployment-killer/*.jar
-            rm -f /opt/unemployment-killer/target/*.jar
 
       - name: Copia o JAR para a VPS
         uses: appleboy/scp-action@v0.1.7
@@ -57,8 +56,8 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
           script: |
-            mv /opt/unemployment-killer/target/unemployment-killer-0.0.1-SNAPSHOT.jar /opt/unemployment-killer/
-            rm -rf /opt/unemployment-killer/target
+            sudo mv /opt/unemployment-killer/target/unemployment-killer-0.0.1-SNAPSHOT.jar /opt/unemployment-killer/
+            sudo rm -rf /opt/unemployment-killer/target
             sudo systemctl start unemployment-killer
             sleep 15
             if sudo systemctl is-active --quiet unemployment-killer; then
