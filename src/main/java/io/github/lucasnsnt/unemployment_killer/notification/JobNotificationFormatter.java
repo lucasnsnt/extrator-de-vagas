@@ -26,6 +26,7 @@ public class JobNotificationFormatter {
     public String formatNotification(Job job, String preFormatedTitle ,String preFormatedDescription) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+
         List<String> urlsJobSource = job.getSources().stream()
                 .map(jobSource -> jobSource.getUrl())
                 .distinct()
