@@ -62,7 +62,6 @@ public class Job {
             orphanRemoval = true)
     private List<JobSource> sources = new ArrayList<>();
 
-
     public String getId() {
         return id;
     }

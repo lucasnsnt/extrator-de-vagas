@@ -1,5 +1,6 @@
 package io.github.lucasnsnt.unemployment_killer.services;
 
+import io.github.lucasnsnt.unemployment_killer.client.OpenRouterClient;
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
 import io.github.lucasnsnt.unemployment_killer.notification.JobNotificationFormatter;
@@ -30,11 +31,18 @@ public class JobServices {
     @Autowired
     public JobNotificationFormatter jobNotificationFormatter;
 
+    @Autowired
+    public JobEnrichmentService jobEnrichmentService;
+
+    @Autowired
+    public OpenRouterClient  openRouterClient;
+
     public String normalizationMethod(String text) {
 
         if (text == null) {
             return null;
         }
+
         text = text.replace("\u00A0", "").toLowerCase().trim();
         text = text.replace("-" , " ").replace("_" , " ");
         text = Normalizer.normalize(text, Normalizer.Form.NFD);
@@ -71,7 +79,6 @@ public class JobServices {
     public Job processJob(Job job, JobSource jobSource, Set<String> sourceJobFindId) throws Exception {
         String preFormatedTitle = job.getTitle();
         String preFormatedDescription = job.getDescription();
-        String preFormatedCompany = job.getCompany();
 
         normalizeJob(job);
         job.setId(generateHash(job.getTitle(),job.getDescription(),job.getCompany()));
@@ -88,8 +95,12 @@ public class JobServices {
                     sourceJobFindId.add(jobSource.getSourceJobId());
                     jobSource.setJob(existingJob);
                     iJobSourceRepository.save(jobSource);
-                    telegramNotification.sendNotification
-                            (jobNotificationFormatter.formatNotification(job, preFormatedTitle, preFormatedDescription));
+                    String formatedJob =
+                            jobNotificationFormatter
+                                    .formatNotification(job, preFormatedTitle, preFormatedDescription);
+                    String sendJob = jobEnrichmentService.openRouterClient
+                            .generateContent(formatedJob, jobEnrichmentService.prompt);
+                    telegramNotification.sendNotification(sendJob);
                     return job;
                 }
             }
@@ -97,8 +108,12 @@ public class JobServices {
         }
         Job savedJob = iJobRepository.save(job);
         iJobRepository.flush();
-        telegramNotification.sendNotification(jobNotificationFormatter
-                .formatNotification(job, preFormatedTitle, preFormatedDescription));
+        String formatedJob =
+                jobNotificationFormatter
+                        .formatNotification(job, preFormatedTitle, preFormatedDescription);
+        String sendJob = jobEnrichmentService.openRouterClient
+                .generateContent(formatedJob, jobEnrichmentService.prompt);
+        telegramNotification.sendNotification(sendJob);
         return savedJob;
 
 
