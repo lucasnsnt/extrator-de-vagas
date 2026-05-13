@@ -25,7 +25,7 @@ public class JobScheduler {
     @Autowired
     private GupyScraper gupyScraper;
 
-    @Scheduled(fixedRate = 720000)
+    @Scheduled(cron = "0 */3 * * *")
     public void JobSearchSchedule() throws Exception {
 
         Set<String> sourceJobFindId = new HashSet<>();
