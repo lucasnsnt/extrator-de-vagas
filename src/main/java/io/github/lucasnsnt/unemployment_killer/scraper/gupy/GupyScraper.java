@@ -27,7 +27,7 @@ public class GupyScraper implements JobScraper {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         List<Job> jobs = new ArrayList<>();
-        GupyApiResponse gupyApiResponse = new GupyApiResponse();
+        GupyApiResponse gupyApiResponse;
 
         try {
 
@@ -42,6 +42,7 @@ public class GupyScraper implements JobScraper {
                         .build();
 
                 Response response = client.newCall(request).execute();
+
                 if (response.isSuccessful()) {
                     String jsonBody = response.body().string();
 
