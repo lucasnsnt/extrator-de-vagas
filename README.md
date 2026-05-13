@@ -32,6 +32,7 @@ MVP em operacao com coleta, persistencia e notificacao automatica de vagas.
 ## Contato
 Desenvolvido por Lucas Santos
 
+
 - [GitHub](https://github.com/lucasnsnt)
 - [LinkedIn](https://www.linkedin.com/in/lucasnsnt)
 - [Instagram](https://instagram.com/lucasnsnt)
