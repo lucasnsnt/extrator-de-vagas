@@ -62,6 +62,23 @@ public class Job {
             orphanRemoval = true)
     private List<JobSource> sources = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return  """
+                {
+                  "title": "%s",
+                  "id": "%s",
+                  "company": "%s",
+                  "sources": %s
+                }
+                """
+                .formatted(getTitle(), getId(), getCompany(), getSources()
+
+
+
+        );
+    }
+
     public String getId() {
         return id;
     }

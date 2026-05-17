@@ -1,17 +1,20 @@
 package io.github.lucasnsnt.unemployment_killer.services;
 
 import io.github.lucasnsnt.unemployment_killer.client.OpenRouterClient;
+import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class JobEnrichmentService {
-
+public class EnrichmentService {
 
     @Autowired
     OpenRouterClient openRouterClient;
 
-    String prompt = """
+    public String enrich (String texto) {
+
+        String prompt = """
             Você receberá os dados de uma vaga de emprego já formatada.
             Sua tarefa é reescrever essa mensagem mantendo o mesmo formato visual, mas melhorando a qualidade do
              conteúdo.
@@ -31,4 +34,8 @@ public class JobEnrichmentService {
             - A mensagem final deve ter no máximo 4090 caracteres, resumindo o conteúdo o quanto for necessário
              paracaber nesse limite sem cortar informações importantes
             """;
+
+        return openRouterClient.generateContent(texto, prompt);
+
+    }
 }
