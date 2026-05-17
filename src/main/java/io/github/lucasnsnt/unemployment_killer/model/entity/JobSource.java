@@ -38,6 +38,17 @@ public class JobSource {
     @Column(name = "sourceJobId")
     private String sourceJobId;
 
+    @Override
+    public String toString() {
+        return
+                """
+                  "id": "%s",
+                  "source": "%s",
+                  "url": "%s",
+                
+                """.formatted(getId(), getSource(), getUrl());
+    }
+
     public Job getJob() {
         return job;
     }

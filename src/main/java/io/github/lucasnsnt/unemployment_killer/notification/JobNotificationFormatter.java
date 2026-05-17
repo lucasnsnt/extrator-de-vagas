@@ -5,7 +5,6 @@ import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
 import io.github.lucasnsnt.unemployment_killer.repository.IJobRepository;
 import io.github.lucasnsnt.unemployment_killer.repository.IJobSourceRepository;
-import io.github.lucasnsnt.unemployment_killer.services.JobServices;
 import org.hibernate.mapping.Array;
 
 import org.springframework.beans.factory.annotation.Autowired;

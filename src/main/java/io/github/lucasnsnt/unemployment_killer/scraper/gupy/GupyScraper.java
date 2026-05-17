@@ -48,8 +48,6 @@ public class GupyScraper implements JobScraper {
 
                     gupyApiResponse = gson.fromJson(jsonBody, GupyApiResponse.class);
 
-
-
                     for (GupyJobResponse jobResponse : gupyApiResponse.getData()) {
                         if (!"vacancy_type_effective".equals(jobResponse.getType())) {
                             continue;
@@ -63,7 +61,6 @@ public class GupyScraper implements JobScraper {
                         job.setCity(jobResponse.getCity());
                         job.setCountry(jobResponse.getCountry());
                         job.setWorkplaceType(jobResponse.getWorkplaceType());
-                        System.out.println(jobResponse.getPublishedDate());
                         job.setPublishedAt(LocalDate.parse(jobResponse.
                                 getPublishedDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
@@ -75,14 +72,9 @@ public class GupyScraper implements JobScraper {
                         job.getSources().add(jobSource);
                         jobs.add(job);
 
-
                     }
 
-
-
-
                 }
-
 
             }
         } catch (IOException e) {

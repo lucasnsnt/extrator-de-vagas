@@ -2,7 +2,7 @@ package io.github.lucasnsnt.unemployment_killer.schedular;
 
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.scraper.gupy.GupyScraper;
-import io.github.lucasnsnt.unemployment_killer.services.JobServices;
+import io.github.lucasnsnt.unemployment_killer.services.JobOrchestrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +20,7 @@ public class JobScheduler {
     private List<String> keywords;
 
     @Autowired
-    private JobServices jobServices;
+        private JobOrchestrator jobOrchestrator;
 
     @Autowired
     private GupyScraper gupyScraper;
@@ -34,7 +34,8 @@ public class JobScheduler {
         for (Job job : jobs) {
 
             try {
-                jobServices.processJob(job, job.getSources().getFirst(), sourceJobFindId);
+                Job savedJob = jobOrchestrator.processJob(job, job.getSources().getFirst(), sourceJobFindId);
+                System.out.println(savedJob);
             }catch (Exception e){
                 System.out.println("Erro ao processar vaga: " + job.getTitle() + e.getMessage());
             }
