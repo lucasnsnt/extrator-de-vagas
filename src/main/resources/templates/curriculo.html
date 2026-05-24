@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        @page {
+          margin: 2cm 2.5cm 2cm 2.5cm;
+          size: A4;
+        }
+
+        body {
+          font-family: "DejaVu Sans", Arial, sans-serif;
+          font-size: 9.5pt;
+          color: #1a1a1a;
+          margin: 0;
+          padding: 0;
+          line-height: 1.45;
+        }
+
+        .header {
+          text-align: center;
+          margin-bottom: 10pt;
+          padding-bottom: 8pt;
+          border-bottom: 1.5pt solid #1a1a1a;
+        }
+
+        .header-name {
+          font-size: 17pt;
+          font-weight: bold;
+          letter-spacing: 1.5pt;
+          text-transform: uppercase;
+          margin-bottom: 4pt;
+        }
+
+        .header-contact {
+          font-size: 8pt;
+          color: #333;
+        }
+
+        .section {
+          margin-bottom: 9pt;
+        }
+
+        .section-title {
+          font-size: 9pt;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1pt;
+          border-bottom: 0.8pt solid #1a1a1a;
+          margin-bottom: 5pt;
+          padding-bottom: 2pt;
+        }
+
+        .skill-line {
+          font-size: 9pt;
+          margin-bottom: 2pt;
+        }
+
+        .skill-label {
+          font-weight: bold;
+        }
+
+        .exp-header {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 2pt;
+        }
+
+        .exp-header td {
+          vertical-align: top;
+          padding: 0;
+        }
+
+        .exp-title {
+          font-weight: bold;
+          font-size: 9.5pt;
+        }
+
+        .exp-period {
+          text-align: right;
+          font-size: 8.5pt;
+          color: #444;
+          white-space: nowrap;
+        }
+
+        .exp-stack {
+          font-size: 8pt;
+          color: #444;
+          margin-top: 2pt;
+          margin-bottom: 5pt;
+        }
+
+        ul {
+          margin: 2pt 0 4pt 0;
+          padding-left: 14pt;
+        }
+
+        li {
+          margin-bottom: 2pt;
+          font-size: 9pt;
+        }
+
+        .edu-header {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        .edu-header td {
+          vertical-align: top;
+          padding: 0;
+        }
+
+        .edu-title {
+          font-weight: bold;
+          font-size: 9.5pt;
+        }
+
+        .edu-period {
+          text-align: right;
+          font-size: 8.5pt;
+          color: #444;
+          white-space: nowrap;
+        }
+
+        .edu-institution {
+          font-size: 9pt;
+          color: #333;
+          margin-top: 1pt;
+        }
+
+        .comp-list {
+          margin: 0;
+          padding-left: 14pt;
+        }
+
+        .comp-list li {
+          font-size: 8.8pt;
+          margin-bottom: 1.5pt;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-name">Lucas Rocha Santos</div>
+    <div class="header-contact">
+        <a href="mailto:lucasnsntcontato@outlook.com">lucasnsntcontato@outlook.com</a> &nbsp;|&nbsp;
+        <a href="https://linkedin.com/in/lucasnsnt">linkedin.com/in/lucasnsnt</a> &nbsp;|&nbsp;
+        <a href="https://github.com/lucasnsnt">github.com/lucasnsnt</a> &nbsp;|&nbsp;
+        <a href="https://lucasnsnt.ink">lucasnsnt.ink</a> &nbsp;|&nbsp;
+        Aracaju, SE
+
+    </div>
+</div>
+
+<!-- PERFIL -->
+<div class="section" id="perfil">
+    <div class="section-title">Perfil</div>
+    <p id="perfil-texto" style="margin:0; font-size:9pt;">
+        Estudante de Ciência da Computação com experiência prática em desenvolvimento web full stack, automação de processos
+        e integração de APIs. Projetos autorais em produção, com foco em lógica de programação, banco de dados e soluções
+        orientadas a problemas reais. Interesse direto em automação, inovação e aplicações com IA.
+    </p>
+</div>
+
+<!-- PROJETOS -->
+<div class="section" id="projetos">
+    <div class="section-title">Projetos</div>
+
+    <!-- PROJETO 1 -->
+    <div id="proj-1">
+        <table class="exp-header">
+            <tr>
+                <td class="exp-title">Cencosud — Residência de Software</td>
+                <td class="exp-period">Fevereiro de 2026 — Em andamento</td>
+            </tr>
+        </table>
+        <ul id="proj-1-bullets">
+            <li>Implementei API REST com integração completa entre front-end e back-end, autenticação via token, validação de regras de negócio e sanitização de dados em todas as camadas.</li>
+            <li>Construí motor de cálculo financeiro para CAPEX, custos operacionais e juros em plataforma de simulação estratégica para o setor de varejo.</li>
+            <li>Integrei comunicação em tempo real com Socket.IO para atualização simultânea de resultados entre participantes.</li>
+            <li>Liderei definição da stack front-end e criação da identidade visual com consistência de UX/UI em todas as telas.</li>
+        </ul>
+        <div class="exp-stack" id="proj-1-stack">Stack: React, Node.js, Express, Prisma, PostgreSQL, Socket.IO, JavaScript</div>
+    </div>
+
+    <!-- PROJETO 2 -->
+    <div id="proj-2">
+        <table class="exp-header">
+            <tr>
+                <td class="exp-title">Bot Buscador de Vagas — Projeto Próprio</td>
+                <td class="exp-period">Maio de 2026 — Em andamento (em produção em VPS)</td>
+            </tr>
+        </table>
+        <ul id="proj-2-bullets">
+            <li>Desenvolvi do zero automação completa para coleta, filtragem e notificação de vagas, sem uso de código gerado por IA.</li>
+            <li>Implementei scraping de portais de emprego com Jsoup e OkHttp, com deduplicação via hash para evitar reprocessamento.</li>
+            <li>Integrei API de LLM via OpenRouter para enriquecimento e resumo automático das descrições coletadas.</li>
+            <li>Configurei filtros por palavras-chave, localização e senioridade via banco de dados, sem necessidade de recompilar a aplicação.</li>
+        </ul>
+        <div class="exp-stack" id="proj-2-stack">Stack: Java 21, Spring Boot 3, Spring Data JPA, Hibernate, PostgreSQL, Jsoup, OkHttp, Spring Scheduler, TelegramBots</div>
+    </div>
+
+    <!-- PROJETO 3 -->
+    <div id="proj-3">
+        <table class="exp-header">
+            <tr>
+                <td class="exp-title">Engplay — Residência de Software</td>
+                <td class="exp-period">Julho de 2025 — Dezembro de 2025</td>
+            </tr>
+        </table>
+        <ul id="proj-3-bullets">
+            <li>Desenvolvi interface web de cancelamento de assinaturas orientada à redução de churn, com foco em UX estratégica.</li>
+            <li>Apliquei heurísticas de usabilidade para identificar pontos de atrito na jornada do usuário.</li>
+            <li>Estruturei fluxos de navegação para mitigação de cancelamentos e produzi documentação técnica do projeto.</li>
+        </ul>
+        <div class="exp-stack" id="proj-3-stack">Stack: HTML5, CSS3, JavaScript</div>
+    </div>
+
+</div>
+
+<!-- EXPERIÊNCIA PROFISSIONAL -->
+<div class="section" id="experiencia">
+    <div class="section-title">Experiência Profissional</div>
+
+    <div id="exp-1">
+        <table class="exp-header">
+            <tr>
+                <td class="exp-title">CellTech — Freelance</td>
+                <td class="exp-period">Maio de 2026 — Em andamento</td>
+            </tr>
+        </table>
+        <ul id="exp-1-bullets">
+            <li>Executo redesign completo de landing page para cliente real com foco em identidade visual, responsividade e conversão.</li>
+            <li>Estruturo página orientada à jornada do visitante e às metas de negócio do cliente.</li>
+        </ul>
+        <div class="exp-stack" id="exp-1-stack">Stack: HTML5, CSS3, JavaScript</div>
+    </div>
+
+</div>
+
+<!-- HABILIDADES TÉCNICAS -->
+<div class="section" id="habilidades">
+    <div class="section-title">Habilidades Técnicas</div>
+    <div class="skill-line"><span class="skill-label">Linguagens:</span> Java, JavaScript, HTML5, CSS3</div>
+    <div class="skill-line"><span class="skill-label">Frameworks e Bibliotecas:</span> Spring Boot, Spring Data JPA, Hibernate, React, Node.js, Express, Socket.IO</div>
+    <div class="skill-line"><span class="skill-label">Banco de Dados:</span> PostgreSQL, Prisma</div>
+    <div class="skill-line"><span class="skill-label">Ferramentas:</span> Git, GitHub, Figma</div>
+    <div class="skill-line"><span class="skill-label">Outras:</span> Jsoup, OkHttp, Gson, TelegramBots, Spring Scheduler, OpenRouter (LLM API)</div>
+    <div class="skill-line"><span class="skill-label">Inglês:</span> B2 (Intermediário-Avançado)</div>
+</div>
+
+<!-- FORMAÇÃO ACADÊMICA -->
+<div class="section" id="formacao">
+    <div class="section-title">Formação Acadêmica</div>
+    <table class="edu-header">
+        <tr>
+            <td class="edu-title">Bacharelado em Ciência da Computação</td>
+            <td class="edu-period">Fevereiro de 2025 — Em andamento</td>
+        </tr>
+    </table>
+    <div class="edu-institution">Universidade Tiradentes</div>
+</div>
+
+<!-- FORMAÇÃO COMPLEMENTAR -->
+<div class="section" id="formacao-complementar">
+    <div class="section-title">Formação Complementar</div>
+    <ul class="comp-list" id="comp-list-items">
+        <li>HTML5 e CSS3 — Curso em Vídeo, 200h</li>
+        <li>JavaScript — Curso em Vídeo, 40h</li>
+        <li>Lógica de Programação — Curso em Vídeo, 40h</li>
+        <li>Java: criando sua primeira aplicação — Alura, 8h</li>
+        <li>Java: Orientação a Objetos — Alura, 10h</li>
+        <li>Java: Listas e Coleções — Alura, 8h</li>
+    </ul>
+</div>
+
+</body>
+</html>
