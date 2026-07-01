@@ -18,8 +18,11 @@ public class ResumeService {
     @Autowired
     private OpenRouterClient openRouterClient;
 
-    @Value("classpath:templates/curriculo.html")
-    private Resource curriculoResource;
+    @Autowired
+    private HtmlRender htmlRender;
+
+    @Autowired
+    private PdfService pdfService;
 
     @Value("classpath:resume_prompt.md")
     private Resource promptResource;
@@ -40,5 +43,13 @@ public class ResumeService {
         return gson.fromJson(jsonContent, ResumeResponse.class);
 
     }
+
+    public byte[] generateResumePdf(String description) throws Exception {
+
+        String htmlContent = htmlRender.render(resumeGenerate(description));
+
+        return pdfService.generatePdf(htmlContent);
+    }
+
 
 }
