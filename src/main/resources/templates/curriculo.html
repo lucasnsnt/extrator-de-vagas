@@ -157,10 +157,8 @@
 <!-- PERFIL -->
 <div class="section" id="perfil">
     <div class="section-title">Perfil</div>
-    <p id="perfil-texto" style="margin:0; font-size:9pt;">
-        Estudante de Ciência da Computação com experiência prática em desenvolvimento web full stack, automação de processos
-        e integração de APIs. Projetos autorais em produção, com foco em lógica de programação, banco de dados e soluções
-        orientadas a problemas reais. Interesse direto em automação, inovação e aplicações com IA.
+    <p th:text="${resume.profile}" id="perfil-texto" style="margin:0; font-size:9pt;">
+
     </p>
 </div>
 
@@ -169,73 +167,46 @@
     <div class="section-title">Projetos</div>
 
     <!-- PROJETO 1 -->
-    <div id="proj-1">
+    <div th:each="proj : ${resume.projects}">
         <table class="exp-header">
             <tr>
-                <td class="exp-title">Cencosud — Residência de Software</td>
-                <td class="exp-period">Fevereiro de 2026 — Em andamento</td>
+                <td th:text="${proj.title}" class="exp-title"></td>
+                <td th:text="${proj.period}" class="exp-period"></td>
             </tr>
         </table>
-        <ul id="proj-1-bullets">
-            <li>Implementei API REST com integração completa entre front-end e back-end, autenticação via token, validação de regras de negócio e sanitização de dados em todas as camadas.</li>
-            <li>Construí motor de cálculo financeiro para CAPEX, custos operacionais e juros em plataforma de simulação estratégica para o setor de varejo.</li>
-            <li>Integrei comunicação em tempo real com Socket.IO para atualização simultânea de resultados entre participantes.</li>
-            <li>Liderei definição da stack front-end e criação da identidade visual com consistência de UX/UI em todas as telas.</li>
-        </ul>
-        <div class="exp-stack" id="proj-1-stack">Stack: React, Node.js, Express, Prisma, PostgreSQL, Socket.IO, JavaScript</div>
-    </div>
+        <ul>
+            <li th:each="bullet : ${proj.bullets}" th:text="${bullet}">
 
-    <!-- PROJETO 2 -->
-    <div id="proj-2">
-        <table class="exp-header">
-            <tr>
-                <td class="exp-title">Bot Buscador de Vagas — Projeto Próprio</td>
-                <td class="exp-period">Maio de 2026 — Em andamento (em produção em VPS)</td>
-            </tr>
-        </table>
-        <ul id="proj-2-bullets">
-            <li>Desenvolvi do zero automação completa para coleta, filtragem e notificação de vagas, sem uso de código gerado por IA.</li>
-            <li>Implementei scraping de portais de emprego com Jsoup e OkHttp, com deduplicação via hash para evitar reprocessamento.</li>
-            <li>Integrei API de LLM via OpenRouter para enriquecimento e resumo automático das descrições coletadas.</li>
-            <li>Configurei filtros por palavras-chave, localização e senioridade via banco de dados, sem necessidade de recompilar a aplicação.</li>
+            </li>
         </ul>
-        <div class="exp-stack" id="proj-2-stack">Stack: Java 21, Spring Boot 3, Spring Data JPA, Hibernate, PostgreSQL, Jsoup, OkHttp, Spring Scheduler, TelegramBots</div>
-    </div>
-
-    <!-- PROJETO 3 -->
-    <div id="proj-3">
-        <table class="exp-header">
-            <tr>
-                <td class="exp-title">Engplay — Residência de Software</td>
-                <td class="exp-period">Julho de 2025 — Dezembro de 2025</td>
-            </tr>
-        </table>
-        <ul id="proj-3-bullets">
-            <li>Desenvolvi interface web de cancelamento de assinaturas orientada à redução de churn, com foco em UX estratégica.</li>
-            <li>Apliquei heurísticas de usabilidade para identificar pontos de atrito na jornada do usuário.</li>
-            <li>Estruturei fluxos de navegação para mitigação de cancelamentos e produzi documentação técnica do projeto.</li>
-        </ul>
-        <div class="exp-stack" id="proj-3-stack">Stack: HTML5, CSS3, JavaScript</div>
+        <div th:text="${proj.stacks}" class="exp-stack"></div>
     </div>
 
 </div>
 
 <!-- EXPERIÊNCIA PROFISSIONAL -->
-<div class="section" id="experiencia">
+<div class="section">
     <div class="section-title">Experiência Profissional</div>
 
-    <div id="exp-1">
+    <div th:each=" exp : ${resume.professionalExperience}">
         <table class="exp-header">
             <tr>
-                <td class="exp-title">CellTech — Freelance</td>
-                <td class="exp-period">Maio de 2026 — Em andamento</td>
+                <td th:text="${exp.title}" class="exp-title">
+
+                </td>
+                <td th:text="${exp.period}" class="exp-period">
+
+                </td>
             </tr>
         </table>
-        <ul id="exp-1-bullets">
-            <li>Executo redesign completo de landing page para cliente real com foco em identidade visual, responsividade e conversão.</li>
-            <li>Estruturo página orientada à jornada do visitante e às metas de negócio do cliente.</li>
+        <ul>
+            <li th:each="bullet : ${exp.bullets}" th:text="${bullet}" >
+
+            </li>
         </ul>
-        <div class="exp-stack" id="exp-1-stack">Stack: HTML5, CSS3, JavaScript</div>
+        <div  th:text="${exp.stacks}"  class="exp-stack">
+
+        </div>
     </div>
 
 </div>
@@ -243,12 +214,29 @@
 <!-- HABILIDADES TÉCNICAS -->
 <div class="section" id="habilidades">
     <div class="section-title">Habilidades Técnicas</div>
-    <div class="skill-line"><span class="skill-label">Linguagens:</span> Java, JavaScript, HTML5, CSS3</div>
-    <div class="skill-line"><span class="skill-label">Frameworks e Bibliotecas:</span> Spring Boot, Spring Data JPA, Hibernate, React, Node.js, Express, Socket.IO</div>
-    <div class="skill-line"><span class="skill-label">Banco de Dados:</span> PostgreSQL, Prisma</div>
-    <div class="skill-line"><span class="skill-label">Ferramentas:</span> Git, GitHub, Figma</div>
-    <div class="skill-line"><span class="skill-label">Outras:</span> Jsoup, OkHttp, Gson, TelegramBots, Spring Scheduler, OpenRouter (LLM API)</div>
-    <div class="skill-line"><span class="skill-label">Inglês:</span> B2 (Intermediário-Avançado)</div>
+    <div class="skill-line">
+        <span class="skill-label">Linguagens:</span>
+        <span th:text="${resume.skills.programmingLanguages}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Frameworks e Bibliotecas:</span>
+        <span th:text="${resume.skills.framework}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Banco de Dados:</span>
+        <span th:text="${resume.skills.databases}"></span>
+    </div>
+    <div class="skill-line"><span class="skill-label">Ferramentas:</span>
+        <span th:text="${resume.skills.tools}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Outras:</span>
+        <span th:text="${resume.skills.others}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Inglês:</span>
+        <span th:text="${resume.skills.spokenLanguages}"></span>
+    </div>
 </div>
 
 <!-- FORMAÇÃO ACADÊMICA -->
@@ -267,12 +255,8 @@
 <div class="section" id="formacao-complementar">
     <div class="section-title">Formação Complementar</div>
     <ul class="comp-list" id="comp-list-items">
-        <li>HTML5 e CSS3 — Curso em Vídeo, 200h</li>
-        <li>JavaScript — Curso em Vídeo, 40h</li>
-        <li>Lógica de Programação — Curso em Vídeo, 40h</li>
-        <li>Java: criando sua primeira aplicação — Alura, 8h</li>
-        <li>Java: Orientação a Objetos — Alura, 10h</li>
-        <li>Java: Listas e Coleções — Alura, 8h</li>
+        <li th:each="education : ${resume.complementaryEducation}" th:text="${education}">
+        </li>
     </ul>
 </div>
 
