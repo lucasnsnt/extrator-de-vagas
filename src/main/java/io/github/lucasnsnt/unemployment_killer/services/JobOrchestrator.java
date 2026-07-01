@@ -36,6 +36,7 @@ public class JobOrchestrator {
         String preFormatedTitle = job.getTitle();
         String preFormatedDescription = job.getDescription();
 
+
         job.setTitle(normalizationService.normalizationMethod(job.getTitle()));
         job.setDescription(normalizationService.normalizationMethod(job.getDescription()));
         job.setCompany(normalizationService.normalizationMethod(job.getCompany()));
