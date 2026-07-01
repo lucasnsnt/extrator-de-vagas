@@ -3,48 +3,41 @@ package io.github.lucasnsnt.unemployment_killer.resume;
 import com.google.gson.Gson;
 import io.github.lucasnsnt.unemployment_killer.client.OpenRouterClient;
 import io.github.lucasnsnt.unemployment_killer.resume.model.ResumeResponse;
+import io.github.lucasnsnt.unemployment_killer.utils.JsonSanitizer;
+import io.github.lucasnsnt.unemployment_killer.utils.ResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 @Service
 public class ResumeService {
 
 
-    @Value("classpath:templates/curriculo.html")
-    private Resource resource;
-
     @Autowired
     private OpenRouterClient openRouterClient;
 
+    @Value("classpath:templates/curriculo.html")
+    private Resource curriculoResource;
 
-    public String resumeReader () throws Exception {
-        try (InputStreamReader reader = new InputStreamReader(
-                this.resource.getInputStream(),
-                StandardCharsets.UTF_8))
-        {
-            return FileCopyUtils.copyToString(reader);
+    @Value("classpath:resume_prompt.md")
+    private Resource promptResource;
 
-        } catch (IOException e) {
-            throw new Exception("Error reading file", e);
-        }
-    }
 
-    public ResumeResponse resumeGenerate(String description) throws IOException {
 
-        String prompt = "a";
+    public ResumeResponse resumeGenerate(String description) throws Exception {
+
+        String prompt = ResourceReader.resourceReader(promptResource);
+
 
         Gson gson = new Gson();
 
-        String jsonRetornado = openRouterClient.generateContent(description, prompt);
+        String llmRawOutput = openRouterClient.generateContent(prompt, description, "~google/gemini-flash-latest");
 
-        return gson.fromJson(jsonRetornado, ResumeResponse.class);
+        String jsonContent = JsonSanitizer.jsonSanitizer(llmRawOutput);
+
+        return gson.fromJson(jsonContent, ResumeResponse.class);
 
     }
 
