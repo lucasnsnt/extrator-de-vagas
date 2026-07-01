@@ -35,7 +35,7 @@ public class EnrichmentService {
              paracaber nesse limite sem cortar informações importantes
             """;
 
-        return openRouterClient.generateContent(texto, prompt);
+        return openRouterClient.generateContent(texto, prompt, "~google/gemini-flash-latest");
 
     }
 }

@@ -22,13 +22,13 @@ public class OpenRouterClient implements IOpenRouterClient {
     private String llmApiKey;
 
     @Override
-    public String  generateContent ( String text , String prompt) {
+    public String  generateContent ( String text , String prompt,String model) {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         List<OpenRouterMessage> messagesList = new ArrayList<>();
         messagesList.add(new OpenRouterMessage("user", prompt + "\n\n" + text));
         OpenRouterRequest requestObject =
-                new OpenRouterRequest("~google/gemini-flash-latest", messagesList);
+                new OpenRouterRequest(model, messagesList);
         String json = gson.toJson(requestObject);
 
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
