@@ -1,5 +1,6 @@
 package io.github.lucasnsnt.unemployment_killer.schedular;
 
+import ch.qos.logback.core.util.FixedDelay;
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.scraper.gupy.GupyScraper;
 import io.github.lucasnsnt.unemployment_killer.services.JobOrchestrator;
@@ -25,7 +26,8 @@ public class JobScheduler {
     @Autowired
     private GupyScraper gupyScraper;
 
-    @Scheduled(cron = "0 0 */3 * * *")
+    //@Scheduled(cron = "0 0 */3 * * *")
+    @Scheduled(fixedDelay = 7200000)
     public void JobSearchSchedule() throws Exception {
 
         Set<String> sourceJobFindId = new HashSet<>();

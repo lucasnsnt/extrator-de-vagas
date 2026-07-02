@@ -38,6 +38,7 @@ public class ResumeService {
 
         String llmRawOutput = openRouterClient.generateContent(prompt, description, "~google/gemini-flash-latest");
 
+        System.out.println(llmRawOutput);
         String jsonContent = JsonSanitizer.jsonSanitizer(llmRawOutput);
 
         return gson.fromJson(jsonContent, ResumeResponse.class);
