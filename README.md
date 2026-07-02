@@ -14,6 +14,7 @@ O projeto automatiza a captura de vagas em fontes online, aplica deduplicacao e 
   - reescrita em portugues brasileiro, mantendo termos tecnicos em ingles
   - identificacao de vagas de empresas estrangeiras
 - Envio de vagas para bot no Telegram
+- geração de currículo personalizado para cada vaga
 - Execucao recorrente com `@Scheduled`
 - Aplicacao publicada em VPS
 
