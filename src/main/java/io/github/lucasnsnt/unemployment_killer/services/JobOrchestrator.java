@@ -3,6 +3,7 @@ package io.github.lucasnsnt.unemployment_killer.services;
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
 import io.github.lucasnsnt.unemployment_killer.notification.JobNotificationFormatter;
+import io.github.lucasnsnt.unemployment_killer.resume.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,10 +32,14 @@ public class JobOrchestrator {
     @Autowired
     JobNotificationFormatter jobNotificationFormatter;
 
+    @Autowired
+    ResumeService resumeService;
+
     @Transactional
     public Job processJob(Job job, JobSource jobSource, Set<String> sourceJobFindId) throws Exception {
         String preFormatedTitle = job.getTitle();
         String preFormatedDescription = job.getDescription();
+
 
         job.setTitle(normalizationService.normalizationMethod(job.getTitle()));
         job.setDescription(normalizationService.normalizationMethod(job.getDescription()));
@@ -52,6 +57,8 @@ public class JobOrchestrator {
                                     (job, preFormatedTitle, preFormatedDescription)
             );
             notificationService.sendNotification(forSend);
+            notificationService.sendDocument(resumeService.generateResumePdf(forSend),
+                    "curriculo-lucas.pdf" );
 
             return persist.get();
         }

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        @page {
+          margin: 2cm 2.5cm 2cm 2.5cm;
+          size: A4;
+        }
+
+        body {
+          font-family: "DejaVu Sans", Arial, sans-serif;
+          font-size: 9.5pt;
+          color: #1a1a1a;
+          margin: 0;
+          padding: 0;
+          line-height: 1.45;
+        }
+
+        .header {
+          text-align: center;
+          margin-bottom: 10pt;
+          padding-bottom: 8pt;
+          border-bottom: 1.5pt solid #1a1a1a;
+        }
+
+        .header-name {
+          font-size: 17pt;
+          font-weight: bold;
+          letter-spacing: 1.5pt;
+          text-transform: uppercase;
+          margin-bottom: 4pt;
+        }
+
+        .header-contact {
+          font-size: 8pt;
+          color: #333;
+        }
+
+        .section {
+          margin-bottom: 9pt;
+        }
+
+        .section-title {
+          font-size: 9pt;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1pt;
+          border-bottom: 0.8pt solid #1a1a1a;
+          margin-bottom: 5pt;
+          padding-bottom: 2pt;
+        }
+
+        .skill-line {
+          font-size: 9pt;
+          margin-bottom: 2pt;
+        }
+
+        .skill-label {
+          font-weight: bold;
+        }
+
+        .exp-header {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 2pt;
+        }
+
+        .exp-header td {
+          vertical-align: top;
+          padding: 0;
+        }
+
+        .exp-title {
+          font-weight: bold;
+          font-size: 9.5pt;
+        }
+
+        .exp-period {
+          text-align: right;
+          font-size: 8.5pt;
+          color: #444;
+          white-space: nowrap;
+        }
+
+        .exp-stack {
+          font-size: 8pt;
+          color: #444;
+          margin-top: 2pt;
+          margin-bottom: 5pt;
+        }
+
+        ul {
+          margin: 2pt 0 4pt 0;
+          padding-left: 14pt;
+        }
+
+        li {
+          margin-bottom: 2pt;
+          font-size: 9pt;
+        }
+
+        .edu-header {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        .edu-header td {
+          vertical-align: top;
+          padding: 0;
+        }
+
+        .edu-title {
+          font-weight: bold;
+          font-size: 9.5pt;
+        }
+
+        .edu-period {
+          text-align: right;
+          font-size: 8.5pt;
+          color: #444;
+          white-space: nowrap;
+        }
+
+        .edu-institution {
+          font-size: 9pt;
+          color: #333;
+          margin-top: 1pt;
+        }
+
+        .comp-list {
+          margin: 0;
+          padding-left: 14pt;
+        }
+
+        .comp-list li {
+          font-size: 8.8pt;
+          margin-bottom: 1.5pt;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-name">Lucas Rocha Santos</div>
+    <div class="header-contact">
+        <a href="mailto:lucasnsntcontato@outlook.com">lucasnsntcontato@outlook.com</a> &#160;|&#160;
+        <a href="https://linkedin.com/in/lucasnsnt">linkedin.com/in/lucasnsnt</a> &#160;|&#160;
+        <a href="https://github.com/lucasnsnt">github.com/lucasnsnt</a> &#160;|&#160;
+        <a href="https://lucasnsnt.ink">lucasnsnt.ink</a> &#160;|&#160;
+        Aracaju, SE
+    </div>
+</div>
+
+<!-- PERFIL -->
+<div class="section" id="perfil">
+    <div class="section-title">Perfil</div>
+    <p th:text="${resume.profile}" id="perfil-texto" style="margin:0; font-size:9pt;">
+
+    </p>
+</div>
+
+<!-- PROJETOS -->
+<div class="section" id="projetos">
+    <div class="section-title">Projetos</div>
+
+    <!-- PROJETO 1 -->
+    <div th:each="proj : ${resume.projects}">
+        <table class="exp-header">
+            <tr>
+                <td th:text="${proj.title}" class="exp-title"></td>
+                <td th:text="${proj.period}" class="exp-period"></td>
+            </tr>
+        </table>
+        <ul>
+            <li th:each="bullet : ${proj.bullets}" th:text="${bullet}">
+
+            </li>
+        </ul>
+        <div th:text="${proj.stacks}" class="exp-stack"></div>
+    </div>
+
+</div>
+
+<!-- EXPERIÊNCIA PROFISSIONAL -->
+<div class="section">
+    <div class="section-title">Experiência Profissional</div>
+
+    <div th:each=" exp : ${resume.professionalExperience}">
+        <table class="exp-header">
+            <tr>
+                <td th:text="${exp.title}" class="exp-title">
+
+                </td>
+                <td th:text="${exp.period}" class="exp-period">
+
+                </td>
+            </tr>
+        </table>
+        <ul>
+            <li th:each="bullet : ${exp.bullets}" th:text="${bullet}" >
+
+            </li>
+        </ul>
+        <div  th:text="${exp.stacks}"  class="exp-stack">
+
+        </div>
+    </div>
+
+</div>
+
+<!-- HABILIDADES TÉCNICAS -->
+<div class="section" id="habilidades">
+    <div class="section-title">Habilidades Técnicas</div>
+    <div class="skill-line">
+        <span class="skill-label">Linguagens:</span>
+        <span th:text="${resume.skills.programmingLanguages}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Frameworks e Bibliotecas:</span>
+        <span th:text="${resume.skills.framework}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Banco de Dados:</span>
+        <span th:text="${resume.skills.databases}"></span>
+    </div>
+    <div class="skill-line"><span class="skill-label">Ferramentas:</span>
+        <span th:text="${resume.skills.tools}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Outras:</span>
+        <span th:text="${resume.skills.others}"></span>
+    </div>
+    <div class="skill-line">
+        <span class="skill-label">Idiomas:</span>
+        <span>Português (nativo)</span> /
+        <span>Inglês - intermediário (B2)</span>
+    </div>
+</div>
+
+<!-- FORMAÇÃO ACADÊMICA -->
+<div class="section" id="formacao">
+    <div class="section-title">Formação Acadêmica</div>
+    <table class="edu-header">
+        <tr>
+            <td class="edu-title">Bacharelado em Ciência da Computação</td>
+            <td class="edu-period">Fevereiro de 2025 — Em andamento</td>
+        </tr>
+    </table>
+    <div class="edu-institution">Universidade Tiradentes</div>
+</div>
+
+<!-- FORMAÇÃO COMPLEMENTAR -->
+<div class="section" id="formacao-complementar">
+    <div class="section-title">Formação Complementar</div>
+    <ul class="comp-list" id="comp-list-items">
+        <li th:each="education : ${resume.complementaryEducation}" th:text="${education}">
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

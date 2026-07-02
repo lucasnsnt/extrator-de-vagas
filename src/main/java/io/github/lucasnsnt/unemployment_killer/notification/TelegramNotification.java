@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.meta.generics.BotOptions;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.net.http.HttpClient;
 
 @Service
@@ -64,6 +68,25 @@ public class TelegramNotification extends TelegramLongPollingBot implements Isen
             execute(sm);                        //Actually sending the message
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);      //Any error will be printed here
+        }
+
+    }
+
+    @Override
+    public void sendDocument(byte[] documentContent, String documentName) {
+
+        InputStream stream = new ByteArrayInputStream(documentContent);
+        InputFile inputFile = new InputFile(stream, documentName);
+
+        SendDocument sd = SendDocument.builder()
+                .chatId(telegramChannel)
+                .document(inputFile)
+                .build();
+
+        try {
+            execute(sd);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
         }
 
     }

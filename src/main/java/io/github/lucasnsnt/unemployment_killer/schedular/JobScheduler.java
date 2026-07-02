@@ -1,5 +1,6 @@
 package io.github.lucasnsnt.unemployment_killer.schedular;
 
+import ch.qos.logback.core.util.FixedDelay;
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.scraper.gupy.GupyScraper;
 import io.github.lucasnsnt.unemployment_killer.services.JobOrchestrator;
