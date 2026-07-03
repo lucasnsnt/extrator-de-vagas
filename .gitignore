@@ -1,7 +1,7 @@
 ##  files ##
 HELP.md
 DOCS.md
-planejamento-feature.md
+planejamento-features.md
 
 ### Maven ###
 target/
@@ -37,3 +37,4 @@ build/
 
 ### VS Code ###
 .vscode/
+
