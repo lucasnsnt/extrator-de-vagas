@@ -10,7 +10,7 @@ public class NormalizationService {
     public String normalizationMethod(String text) {
 
         if (text == null) {
-            return null;
+            return "";
         }
 
         text = text.replace("\u00A0", "").toLowerCase().trim();

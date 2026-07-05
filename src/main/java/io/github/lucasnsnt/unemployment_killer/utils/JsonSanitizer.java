@@ -17,7 +17,7 @@ public class JsonSanitizer {
             }
             return rawText.substring(startIndex, endIndex + 1);
         } else {
-            throw new IllegalArgumentException("Invalid JSON string"); // thorw simplificada
+            throw new IllegalArgumentException("Invalid JSON string"); // throw simplificada
         }
 
     }
