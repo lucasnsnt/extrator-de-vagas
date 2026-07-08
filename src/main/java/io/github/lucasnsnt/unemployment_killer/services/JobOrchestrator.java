@@ -1,5 +1,6 @@
 package io.github.lucasnsnt.unemployment_killer.services;
 
+import io.github.lucasnsnt.unemployment_killer.filter.BinaryFIlter;
 import io.github.lucasnsnt.unemployment_killer.model.entity.Job;
 import io.github.lucasnsnt.unemployment_killer.model.entity.JobSource;
 import io.github.lucasnsnt.unemployment_killer.notification.JobNotificationFormatter;
@@ -35,8 +36,16 @@ public class JobOrchestrator {
     @Autowired
     ResumeService resumeService;
 
+    @Autowired
+    BinaryFIlter  binaryFIlter;
+
     @Transactional
     public Job processJob(Job job, JobSource jobSource, Set<String> sourceJobFindId) throws Exception {
+
+        if (!binaryFIlter.binaryFilter(job)) {
+            return null;
+        }
+
         String preFormatedTitle = job.getTitle();
         String preFormatedDescription = job.getDescription();
 
