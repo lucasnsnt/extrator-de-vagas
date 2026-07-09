@@ -25,6 +25,11 @@ Fevereiro de 2025 — Em andamento
 - Java: criando sua primeira aplicação — Alura, 8h
 - Java: Orientação a Objetos — Alura, 10h
 - Java: Listas e Coleções — Alura, 8h
+- Google Cloud Computing Foundations Certificate — Google
+- Set Up an App Dev Environment on Google Cloud — Google Cloud Skill Badge
+- Prepare Data for ML APIs on Google Cloud — Google Cloud Skill Badge
+- Build a Secure Google Cloud Network — Google Cloud Skill Badge
+- Implement Load Balancing on Compute Engine — Google Cloud Skill Badge
 
 **Idiomas**
 Inglês: B2 (Intermediário-Avançado)
